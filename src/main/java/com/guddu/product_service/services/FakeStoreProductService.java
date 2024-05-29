@@ -69,4 +69,14 @@ public class FakeStoreProductService implements ProductService {
         );
         return fakeStoreDto.toProduct();
     }
+
+    @Override
+    public Product deleteProduct(int productId) throws ProductNotFoundException {
+        FakeStoreDto fakeStoreDto = restTemplate.getForObject("https://fakestoreapi.com/products/" + productId, FakeStoreDto.class);
+        if (fakeStoreDto == null) {
+            throw new ProductNotFoundException("Product with id " + productId + " doesn't exist.");
+        }
+        restTemplate.delete("https://fakestoreapi.com/products/" + productId);
+        return fakeStoreDto.toProduct();
+    }
 }

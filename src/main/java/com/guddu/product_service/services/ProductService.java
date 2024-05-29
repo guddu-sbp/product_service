@@ -21,4 +21,6 @@ public interface ProductService {
             double price
     );
 
+    public Product deleteProduct(int productId) throws ProductNotFoundException;
+
 }
